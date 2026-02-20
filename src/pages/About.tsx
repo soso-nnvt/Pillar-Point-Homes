@@ -2,10 +2,12 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Quote, Award, Users, Building2, CheckCircle2 } from 'lucide-react';
 import { BlurImage } from '../components/BlurImage';
+import PageTransition from '../components/PageTransition';
 
 const About = () => {
   return (
-    <div className="pt-32">
+    <PageTransition>
+      <div className="pt-32">
       {/* Vision Section */}
       <section className="max-w-7xl mx-auto px-6 mb-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
@@ -203,7 +205,8 @@ const About = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 

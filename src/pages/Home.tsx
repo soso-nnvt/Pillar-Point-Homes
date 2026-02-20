@@ -7,6 +7,8 @@ import { BlurImage } from '../components/BlurImage';
 
 const LOGO_URL = "https://res.cloudinary.com/djfqa4llc/image/upload/v1771626333/imgi_2_336815376_603226418328153_6483497326909802276_n_yhrqcy.jpg";
 
+import PageTransition from '../components/PageTransition';
+
 const Home = () => {
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -28,56 +30,58 @@ const Home = () => {
   const ARAROMI_PHASE1 = "https://res.cloudinary.com/djfqa4llc/image/upload/v1771627326/zylushomespCwmqaAysDzk11-1024x575_st5g8r.jpg";
 
   return (
-    <div className="overflow-hidden">
-      {/* Hero Section */}
-      <section className="relative h-screen flex flex-col md:flex-row">
-        {/* Left Panel - Fixed-ish */}
-        <div className="w-full md:w-1/2 bg-midnight flex flex-col justify-center px-6 md:px-20 py-20 z-10 relative">
-          {/* Subtle Overlay for text pop */}
-          <div className="absolute inset-0 bg-midnight/20 pointer-events-none" />
-          
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-            className="mb-8 relative z-10 md:mb-12"
-          >
-            <img src={LOGO_URL} alt="Pillar Point Logo" className="h-20 w-20 md:h-32 md:w-32 object-cover rounded-full border-2 border-white/20" />
-          </motion.div>
-          
-          <div className="md:pr-[20%] relative z-10">
-            <motion.h1 
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="font-display text-4xl md:text-7xl text-white leading-[1.1] mb-8"
-            >
-              Building Africa’s <br />
-              <span className="italic font-normal">No. 1 Premier</span> <br />
-              Real Estate Legacy.
-            </motion.h1>
-            
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="text-white/60 text-lg max-w-md mb-10 leading-relaxed"
-            >
-              Secure your future with strategic land banking and smart city investments in the heart of Lagos's most explosive growth corridors.
-            </motion.p>
+    <PageTransition>
+      <div className="overflow-hidden">
+        {/* Hero Section */}
+        <section className="relative h-screen flex flex-col md:flex-row">
+          {/* Left Panel - Fixed-ish */}
+          <div className="w-full md:w-1/2 bg-midnight flex flex-col justify-center px-6 md:px-20 py-20 z-10 relative">
+            {/* Subtle Overlay for text pop */}
+            <div className="absolute inset-0 bg-midnight/20 pointer-events-none" />
             
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.8 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1 }}
+              className="mb-8 relative z-10 md:mb-12"
             >
-              <Link to="/properties" className="double-border-btn group">
-                Explore Portfolio
-                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
-              </Link>
+              <img src={LOGO_URL} alt="Pillar Point Logo" className="h-20 w-20 md:h-32 md:w-32 object-cover rounded-full border-2 border-white/20" />
             </motion.div>
+            
+            <div className="md:pr-[20%] relative z-10 max-w-[65ch]">
+              <motion.h1 
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, delay: 0.2 }}
+                className="font-display text-4xl md:text-7xl text-white leading-[1.25] mb-8"
+              >
+                Building Africa’s <br />
+                <span className="italic font-normal">No. 1 Premier</span> <br />
+                Real Estate Legacy.
+              </motion.h1>
+              
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 0.5 }}
+                className="text-white/60 text-lg max-w-md mb-10 leading-relaxed"
+              >
+                Secure your future with strategic land banking and smart city investments in the heart of Lagos's most explosive growth corridors.
+              </motion.p>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.8 }}
+              >
+                <Link to="/properties" className="double-border-btn group">
+                  Explore Portfolio
+                  <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+                </Link>
+              </motion.div>
+            </div>
           </div>
-        </div>
+
 
         {/* Right Panel - Scrolling Gallery with Featured Background */}
         <div className="w-full md:w-1/2 h-[40vh] md:h-full relative overflow-hidden">
@@ -212,7 +216,8 @@ const Home = () => {
           ))}
         </div>
       </section>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 

@@ -1,13 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useScroll, useSpring } from 'motion/react';
 import { Menu, X, Phone, Mail, MapPin, ArrowRight, Instagram, Facebook, Linkedin, MessageCircle, Youtube } from 'lucide-react';
 import Home from './pages/Home';
 import Properties from './pages/Properties';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import ScrollToTop from './components/ScrollToTop';
+import { WhatsAppIcon } from './components/WhatsAppIcon';
 
 const LOGO_URL = "https://res.cloudinary.com/djfqa4llc/image/upload/v1771626333/imgi_2_336815376_603226418328153_6483497326909802276_n_yhrqcy.jpg";
+const WHATSAPP_URL = "https://wa.me/2349041110004?text=Hello%20Pillar%20Point%20Homes%2C%20I%20am%20interested%20in%20learning%20more%20about%20your%20Lekki%20Smart%20City%20investments.%20Could%20you%20provide%20more%20details%3F";
+
+const ProgressBar = () => {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  return (
+    <motion.div
+      className="fixed top-0 left-0 right-0 h-1 bg-midnight z-[60] origin-left"
+      style={{ scaleX }}
+    />
+  );
+};
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -21,6 +40,17 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -60,43 +90,84 @@ const Header = () => {
         </nav>
 
         {/* Mobile Toggle */}
-        <button className="md:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-          {isMobileMenuOpen ? <X className={isScrolled ? 'text-white' : 'text-midnight'} /> : <Menu className={isScrolled ? 'text-white' : 'text-midnight'} />}
+        <button className="md:hidden z-[70]" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          {isMobileMenuOpen ? <X className="text-white" size={32} /> : <Menu className={isScrolled ? 'text-white' : 'text-midnight'} size={32} />}
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Full-Screen Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 w-full bg-midnight text-white p-10 md:hidden flex flex-col gap-6 items-center"
+            initial={{ y: '-100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '-100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 120 }}
+            className="fixed inset-0 bg-midnight z-[65] flex flex-col items-center justify-between p-10 pt-32 text-white"
           >
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-xl font-display uppercase tracking-widest"
+            <div className="flex flex-col gap-8 items-center">
+              {navLinks.map((link, idx) => (
+                <motion.div
+                  key={link.path}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * idx }}
+                >
+                  <Link
+                    to={link.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-4xl font-display uppercase tracking-[0.2em] hover:text-white/60 transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
+              ))}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
               >
-                {link.name}
-              </Link>
-            ))}
-            <Link 
-              to="/contact" 
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="double-border-btn w-full text-center"
-            >
-              Invest Now
-            </Link>
+                <Link 
+                  to="/contact" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="double-border-btn w-64 text-center mt-4"
+                >
+                  Invest Now
+                </Link>
+              </motion.div>
+            </div>
+
+            <div className="flex flex-col items-center gap-8 w-full">
+              <div className="text-center">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold mb-2">The Physical Hub</p>
+                <p className="text-xs uppercase tracking-widest text-white/60 max-w-[280px] leading-relaxed font-sans">
+                  Beechwood Estate, Plot 25B Kiyawa Close, Off College Cres, Ibeju Lekki, Lagos.
+                </p>
+              </div>
+              
+              <div className="flex gap-8">
+                <a href="https://www.instagram.com/pillarpointhomes/" target="_blank" rel="noopener noreferrer">
+                  <Instagram className="text-white/60 hover:text-white transition-colors" size={24} />
+                </a>
+                <a href="https://web.facebook.com/people/Pillar-Point-Homes/" target="_blank" rel="noopener noreferrer">
+                  <Facebook className="text-white/60 hover:text-white transition-colors" size={24} />
+                </a>
+                <a href="https://www.linkedin.com/company/pillar-point-homes/" target="_blank" rel="noopener noreferrer">
+                  <Linkedin className="text-white/60 hover:text-white transition-colors" size={24} />
+                </a>
+                <a href="https://www.youtube.com/@pillarpointhomes" target="_blank" rel="noopener noreferrer">
+                  <Youtube className="text-white/60 hover:text-white transition-colors" size={24} />
+                </a>
+              </div>
+              <p className="text-[10px] uppercase tracking-[0.3em] text-white/20 font-bold">RC 1751472</p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
     </header>
   );
 };
+
 
 const Footer = () => (
   <footer className="bg-midnight text-white pt-20 pb-10">
@@ -148,8 +219,8 @@ const Footer = () => (
       </div>
     </div>
     <div className="max-w-7xl mx-auto px-6 pt-8 text-center">
-      <p className="font-space text-[10px] text-white/40 uppercase tracking-[0.3em]">
-        POWERED BY <a href="https://netnovatelabs.com.ng" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">NETNOVATELABS</a>
+      <p className="font-space text-[10px] text-white/80 font-bold uppercase tracking-[0.3em]">
+        POWERED BY <a href="https://netnovatelabs.com.ng" target="_blank" rel="noopener noreferrer" className="text-white font-bold hover:opacity-100 opacity-80 transition-opacity hover:underline decoration-[#D4AF37] underline-offset-4">NETNOVATELABS</a>
       </p>
     </div>
   </footer>
@@ -158,28 +229,32 @@ const Footer = () => (
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
+      <ProgressBar />
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/properties" element={<Properties />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
+          <AnimatePresence mode="wait">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/properties" element={<Properties />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </AnimatePresence>
         </main>
         <Footer />
         
         {/* Floating WhatsApp Concierge */}
         <motion.a 
-          href="https://wa.me/2349041110004?text=Hello%20Pillar%20Point%20Homes%2C%20I%20am%20interested%20in%20learning%20more%20about%20your%20Lekki%20Smart%20City%20investments.%20Could%20you%20provide%20more%20details%3F" 
+          href={WHATSAPP_URL} 
           target="_blank" 
           rel="noopener noreferrer"
           initial={{ width: '60px' }}
           whileHover={{ width: '280px' }}
-          className="fixed bottom-8 right-8 z-50 bg-green-500 text-white h-[60px] rounded-full shadow-2xl flex items-center justify-start overflow-hidden group px-[18px] transition-all duration-300"
+          className="fixed bottom-8 right-8 z-50 bg-midnight text-white h-[60px] rounded-full shadow-[0_0_20px_rgba(255,255,255,0.1)] flex items-center justify-start overflow-hidden group px-[18px] transition-all duration-300 border border-white/10"
         >
-          <MessageCircle size={24} className="shrink-0" />
+          <WhatsAppIcon className="w-6 h-6 shrink-0" />
           <span className="ml-4 font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             Speak with a Consultant
           </span>

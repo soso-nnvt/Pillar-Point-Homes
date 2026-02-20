@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
 import { MapPin, TrendingUp, ShieldCheck, ChevronRight, Info } from 'lucide-react';
 import { BlurImage } from '../components/BlurImage';
+import PageTransition from '../components/PageTransition';
 
 const properties = [
   {
@@ -99,7 +100,8 @@ const Properties = () => {
     : properties.filter(p => p.tier === filter);
 
   return (
-    <div className="pt-32 pb-20 bg-gray-50">
+    <PageTransition>
+      <div className="pt-32 pb-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-6">
         <header className="mb-16">
           <motion.h1 
@@ -258,7 +260,8 @@ const Properties = () => {
           </div>
         </section>
       </div>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 
