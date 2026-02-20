@@ -1,0 +1,7 @@
+{
+  "name": "Pillar Point Homes",
+  "description": "Premier Real Estate Legacy - Building Africa's No. 1 Smart Cities and Investment Portfolios.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
