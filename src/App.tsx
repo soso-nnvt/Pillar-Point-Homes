@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useSpring } from 'motion/react';
 import { Menu, X, Phone, Mail, MapPin, ArrowRight, Instagram, Facebook, Linkedin, MessageCircle, Youtube } from 'lucide-react';
 import Home from './pages/Home';
@@ -22,7 +22,7 @@ const ProgressBar = () => {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-1 bg-midnight z-[60] origin-left"
+      className="fixed top-0 left-0 right-0 h-1 bg-white z-[9999] origin-left"
       style={{ scaleX }}
     />
   );
@@ -60,40 +60,45 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'glass-header scrolled py-3' : 'glass-header py-6'}`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <Link to="/" className="flex items-center gap-3">
-          <img src={LOGO_URL} alt="Pillar Point Homes" className="h-12 w-12 object-cover rounded-full border border-white/20" />
-          <span className={`font-display text-xl font-bold tracking-tight ${isScrolled ? 'text-white' : 'text-midnight'}`}>
-            PILLAR POINT
-          </span>
-        </Link>
-
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-10">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`text-sm font-semibold uppercase tracking-widest transition-colors ${
-                location.pathname === link.path 
-                  ? (isScrolled ? 'text-white underline underline-offset-8' : 'text-midnight underline underline-offset-8') 
-                  : (isScrolled ? 'text-white/70 hover:text-white' : 'text-midnight/70 hover:text-midnight')
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-          <Link to="/contact" className="double-border-btn text-xs uppercase tracking-widest">
-            Invest Now
+    <>
+      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'glass-header scrolled py-3' : 'glass-header py-6'}`}>
+        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+          <Link to="/" className="flex items-center gap-3">
+            <img src={LOGO_URL} alt="Pillar Point Homes" className="h-12 w-12 object-cover rounded-full border border-white/20" />
+            <span className={`font-display text-xl font-bold tracking-tight ${isScrolled ? 'text-white' : 'text-midnight'}`}>
+              PILLAR POINT
+            </span>
           </Link>
-        </nav>
 
-        {/* Mobile Toggle */}
-        <button className="md:hidden z-[70]" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-          {isMobileMenuOpen ? <X className="text-white" size={32} /> : <Menu className={isScrolled ? 'text-white' : 'text-midnight'} size={32} />}
-        </button>
-      </div>
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-10">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`text-sm font-semibold uppercase tracking-widest transition-colors ${
+                  location.pathname === link.path 
+                    ? (isScrolled ? 'text-white underline underline-offset-8' : 'text-midnight underline underline-offset-8') 
+                    : (isScrolled ? 'text-white/70 hover:text-white' : 'text-midnight/70 hover:text-midnight')
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+            <Link to="/contact" className="double-border-btn text-xs uppercase tracking-widest">
+              Invest Now
+            </Link>
+          </nav>
+
+          {/* Mobile Toggle */}
+          <button 
+            className="md:hidden z-[60] relative" 
+            onClick={() => setIsMobileMenuOpen(true)}
+          >
+            <Menu className={isScrolled ? 'text-white' : 'text-midnight'} size={32} />
+          </button>
+        </div>
+      </header>
 
       {/* Full-Screen Mobile Menu Overlay */}
       <AnimatePresence>
@@ -103,8 +108,16 @@ const Header = () => {
             animate={{ y: 0 }}
             exit={{ y: '-100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 120 }}
-            className="fixed inset-0 bg-midnight z-[65] flex flex-col items-center justify-between p-10 pt-32 text-white"
+            className="fixed inset-0 z-[9999] flex flex-col items-center justify-between p-10 pt-32 text-white h-screen w-screen"
+            style={{ backgroundColor: '#000165' }}
           >
+            <button 
+              className="absolute top-6 right-6 text-white p-2"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <X size={32} />
+            </button>
+
             <div className="flex flex-col gap-8 items-center">
               {navLinks.map((link, idx) => (
                 <motion.div
@@ -116,7 +129,7 @@ const Header = () => {
                   <Link
                     to={link.path}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-4xl font-display uppercase tracking-[0.2em] hover:text-white/60 transition-colors"
+                    className="text-4xl font-display font-bold uppercase tracking-[0.2em] hover:text-white/60 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -164,7 +177,7 @@ const Header = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 };
 
@@ -240,6 +253,7 @@ export default function App() {
               <Route path="/properties" element={<Properties />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </AnimatePresence>
         </main>
