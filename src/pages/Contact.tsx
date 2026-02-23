@@ -3,10 +3,15 @@ import { motion } from 'motion/react';
 import { Phone, Mail, MapPin, MessageCircle, Send, Calendar, Briefcase, Clock } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
 import { WhatsAppIcon } from '../components/WhatsAppIcon';
+import { useSEO } from '../hooks/useSEO';
 
 const WHATSAPP_URL = "https://wa.me/2349041110004?text=Hello%20Pillar%20Point%20Homes%2C%20I%20am%20interested%20in%20learning%20more%20about%20your%20Lekki%20Smart%20City%20investments.%20Could%20you%20provide%20more%20details%3F";
 
 const Contact = () => {
+  useSEO({
+    title: 'Contact Our Concierge | Real Estate Investment Lagos',
+    description: 'Begin your investment journey with Pillar Point Homes. Contact our priority consultants for strategic real estate opportunities in Lagos.'
+  });
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -34,10 +39,10 @@ const Contact = () => {
             transition={{ duration: 1 }}
           >
             <h2 className="text-midnight/40 uppercase tracking-[0.3em] text-sm font-semibold mb-6">The Concierge</h2>
-            <h1 className="font-display text-5xl md:text-7xl text-midnight mb-8 leading-tight">
+            <h3 className="font-display text-5xl md:text-7xl text-midnight mb-8 leading-tight">
               Begin Your <br />
               <span className="italic">Investment Journey</span>
-            </h1>
+            </h3>
             <p className="text-midnight/60 text-lg leading-relaxed mb-12 max-w-lg">
               Our priority consultants are ready to guide you through the complexities of the Lagos real estate market. Secure your legacy today.
             </p>

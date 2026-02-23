@@ -4,6 +4,7 @@ import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
 import { MapPin, TrendingUp, ShieldCheck, ChevronRight, Info } from 'lucide-react';
 import { BlurImage } from '../components/BlurImage';
 import PageTransition from '../components/PageTransition';
+import { useSEO } from '../hooks/useSEO';
 
 const properties = [
   {
@@ -92,6 +93,10 @@ const ROIChart = ({ data }: { data: any[] }) => (
 );
 
 const Properties = () => {
+  useSEO({
+    title: 'Investment Portfolio | Real Estate Opportunities in Lagos',
+    description: 'Explore Pillar Point Homes\' investment portfolio. Curated real estate opportunities in Lagos including Smart City plots and premium estates.'
+  });
   const [filter, setFilter] = useState('All');
   const tiers = ['All', 'Buy It Back Schemes', 'Smart City Plots', 'Premium Estates'];
 
@@ -149,7 +154,7 @@ const Properties = () => {
                 <div className="relative aspect-video overflow-hidden">
                   <BlurImage 
                     src={prop.img} 
-                    alt={prop.name} 
+                    alt={`${prop.name} - ${prop.location} Real Estate`} 
                     loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
@@ -226,7 +231,7 @@ const Properties = () => {
             <div className="relative group cursor-crosshair">
               <img 
                 src="https://picsum.photos/seed/drone/1200/1000" 
-                alt="Drone View" 
+                alt="Aerial Drone View of Pillar Point Homes Smart City Development in Lekki" 
                 className="rounded-3xl w-full h-[500px] object-cover border border-white/20"
                 referrerPolicy="no-referrer"
               />

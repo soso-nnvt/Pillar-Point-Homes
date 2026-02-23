@@ -4,12 +4,17 @@ import { ArrowRight, Shield, TrendingUp, Map } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { BlurImage } from '../components/BlurImage';
+import { useSEO } from '../hooks/useSEO';
 
 const LOGO_URL = "https://res.cloudinary.com/djfqa4llc/image/upload/v1771626333/imgi_2_336815376_603226418328153_6483497326909802276_n_yhrqcy.jpg";
 
 import PageTransition from '../components/PageTransition';
 
 const Home = () => {
+  useSEO({
+    title: 'Premier Real Estate Investment & Land Banking in Lagos',
+    description: 'Secure your future with Pillar Point Homes. Strategic land banking and smart city investments in Lagos\'s most explosive growth corridors.'
+  });
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -55,9 +60,9 @@ const Home = () => {
                 transition={{ duration: 1, delay: 0.2 }}
                 className="font-display text-4xl md:text-7xl text-white leading-[1.25] mb-8"
               >
-                Building Africa’s <br />
-                <span className="italic font-normal">No. 1 Premier</span> <br />
-                Real Estate Legacy.
+                Premier Real Estate <br />
+                <span className="italic font-normal">Investment & Land</span> <br />
+                Banking in Lagos.
               </motion.h1>
               
               <motion.p
@@ -97,7 +102,7 @@ const Home = () => {
               <div key={i} className="h-[400px] w-full overflow-hidden rounded-lg">
                 <img 
                   src={`https://picsum.photos/seed/lagos${i}/800/1200`} 
-                  alt="Lagos Skyline" 
+                  alt={`Pillar Point Homes - Lagos Real Estate Development View ${i}`} 
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                   referrerPolicy="no-referrer"
                 />
@@ -125,7 +130,7 @@ const Home = () => {
             viewport={{ once: true }}
             className="font-display text-4xl md:text-6xl text-white font-light leading-[1.1] max-w-4xl"
           >
-            Land banking is the ultimate hedge against inflation. In Lagos, land doesn't just appreciate; it <span className="italic">multiplies</span> in value.
+            <p className="text-white">Land banking is the ultimate hedge against inflation. In Lagos, land doesn't just appreciate; it <span className="italic">multiplies</span> in value.</p>
           </motion.div>
         </div>
 
@@ -158,7 +163,7 @@ const Home = () => {
           <div className="flex justify-between items-end mb-16">
             <div>
               <h2 className="text-midnight/40 uppercase tracking-[0.3em] text-sm font-semibold mb-4">Featured Developments</h2>
-              <p className="font-display text-4xl md:text-5xl text-midnight leading-[1.1]">The Smart City Frontier</p>
+              <h3 className="font-display text-4xl md:text-5xl text-midnight leading-[1.1]">The Smart City Frontier</h3>
             </div>
             <Link to="/properties" className="hidden md:flex items-center gap-2 text-midnight font-semibold border-b-2 border-midnight pb-1">
               View All Projects <ArrowRight size={18} />

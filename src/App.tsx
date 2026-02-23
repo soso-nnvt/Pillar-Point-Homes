@@ -8,6 +8,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import ScrollToTop from './components/ScrollToTop';
 import { WhatsAppIcon } from './components/WhatsAppIcon';
+import { JsonLd } from './components/JsonLd';
 
 const LOGO_URL = "https://res.cloudinary.com/djfqa4llc/image/upload/v1771626333/imgi_2_336815376_603226418328153_6483497326909802276_n_yhrqcy.jpg";
 const WHATSAPP_URL = "https://wa.me/2349041110004?text=Hello%20Pillar%20Point%20Homes%2C%20I%20am%20interested%20in%20learning%20more%20about%20your%20Lekki%20Smart%20City%20investments.%20Could%20you%20provide%20more%20details%3F";
@@ -242,6 +243,7 @@ const Footer = () => (
 export default function App() {
   return (
     <Router>
+      <JsonLd />
       <ScrollToTop />
       <ProgressBar />
       <div className="min-h-screen flex flex-col">

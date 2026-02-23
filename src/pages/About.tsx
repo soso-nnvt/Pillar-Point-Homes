@@ -3,8 +3,13 @@ import { motion } from 'motion/react';
 import { Quote, Award, Users, Building2, CheckCircle2 } from 'lucide-react';
 import { BlurImage } from '../components/BlurImage';
 import PageTransition from '../components/PageTransition';
+import { useSEO } from '../hooks/useSEO';
 
 const About = () => {
+  useSEO({
+    title: 'Our Legacy | Pioneering Lagos Real Estate',
+    description: 'Learn about Pillar Point Homes, the premier destination for strategic land banking in Nigeria. Pioneering the future of Lagos real estate with integrity and vision.'
+  });
   return (
     <PageTransition>
       <div className="pt-32">
@@ -18,11 +23,11 @@ const About = () => {
             transition={{ duration: 1 }}
           >
             <h2 className="text-midnight/40 uppercase tracking-[0.3em] text-sm font-semibold mb-6">Our Legacy</h2>
-            <h1 className="font-display text-5xl md:text-7xl text-midnight mb-8 leading-[1.1]">
+            <h3 className="font-display text-5xl md:text-7xl text-midnight mb-8 leading-[1.1]">
               Pioneering the <br />
               <span className="italic">Future of Lagos</span> <br />
               Real Estate.
-            </h1>
+            </h3>
             <p className="text-midnight/60 text-lg leading-relaxed mb-10">
               Founded on the principles of integrity, security, and visionary urban planning, Pillar Point Homes has emerged as the premier destination for strategic land banking in Nigeria. We don't just sell plots; we architect the foundations of Africa's most advanced smart cities.
             </p>
@@ -48,7 +53,7 @@ const About = () => {
             <div className="aspect-[4/5] rounded-[3rem] overflow-hidden">
               <BlurImage 
                 src="https://res.cloudinary.com/djfqa4llc/image/upload/v1771627533/Real-Estate-Expert-Educates-on-Rent-to-Own_of4k09.jpg" 
-                alt="Real Estate Expert" 
+                alt="Pillar Point Homes Real Estate Expert" 
                 loading="lazy"
                 className="w-full h-full object-cover grayscale"
               />
@@ -122,7 +127,7 @@ const About = () => {
               <div className="aspect-[3/4] rounded-[4rem] overflow-hidden border border-white/10">
                 <BlurImage 
                   src="https://res.cloudinary.com/djfqa4llc/image/upload/v1771627837/624319819_18085709801157354_973060275119910842_n.jpg_jlclkt.jpg" 
-                  alt="Ayodele Momodu" 
+                  alt="Ayodele Momodu - CEO & Founder of Pillar Point Homes" 
                   loading="lazy"
                   className="w-full h-full object-cover grayscale brightness-75 contrast-125"
                 />
