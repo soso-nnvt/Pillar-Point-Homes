@@ -1,20 +1,24 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Pillar Point Homes
 
-# Run and deploy your AI Studio app
+Company/marketing + listings portal for Pillar Point Homes. React + Vite + TypeScript with charts-ready UI (recharts), routing, and SEO meta.
 
-This contains everything you need to run your app locally.
+## Stack
+- React 19, React Router 7, TypeScript, Vite 6
+- Tailwind CSS 4, lucide-react, motion, recharts
+- react-helmet-async for SEO (where wired)
+- Express backend shim for local/dev
 
-View your app in AI Studio: https://ai.studio/apps/47007620-a815-45a9-a599-730a32a4ab8a
+## Run locally
+1. `npm install`
+2. `cp .env.example .env` if you need runtime env (defaults are placeholders)
+3. `npm run dev` â€” Vite on port 3000
+4. `npm run build` / `npm run preview`
+5. `npm run lint` (`tsc --noEmit`)
 
-## Run Locally
+## Deploy
+- `netlify.toml` present â€” Netlify-ready.
+- `.env*` gitignored except `.env.example`. No secrets committed.
 
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Repo
+- Default branch: `main`
+- Author: Abdulsobur Obe â€” https://www.linkedin.com/in/abdulsobur-obe-463a6729b/
